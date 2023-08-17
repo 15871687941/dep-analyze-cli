@@ -1,0 +1,27 @@
+{
+  "name": "packagedepgraph",
+  "version": "1.0.0",
+  "description": "list all the deps of the package",
+  "main": "./index.js",
+  "scripts": {
+    "start": "ts-node ./index.ts analyze",
+    "build": "tsc && cp ./package.json ../packagedepgraph-use/package.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "pkg-cli": "./index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.4.9",
+    "glob": "^10.3.3",
+    "open": "^9.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
+}
