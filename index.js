@@ -1,11 +1,9 @@
-#!/usr/bin/env node
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const server_1 = require("./server");
-const server_2 = require("./server");
 const utils_1 = require("./utils");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
@@ -93,11 +91,11 @@ try {
                 throw new Error("Error:命令格式--package选项和--version选项必须一起不出现或者一起出现");
             }
             let depConfObj = (0, utils_1.getLocalDepConfObj)(pkg, ver);
-            server_2.depAnalyze.load(depConfObj.name, depConfObj.version, depth);
-            console.log(server_2.depAnalyze.toObject());
+            server_1.depAnalyze.load(depConfObj.name, depConfObj.version, depth);
+            console.log(server_1.depAnalyze.toObject());
             if (jsonPath !== "") {
                 if (jsonPath.endsWith(".json")) {
-                    server_2.depAnalyze.save(jsonPath);
+                    server_1.depAnalyze.save(jsonPath);
                 }
             }
         }

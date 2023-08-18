@@ -7,6 +7,7 @@ exports.run_server = exports.isPortOpen = exports.depAnalyze = void 0;
 const express_1 = __importDefault(require("express"));
 const depanalyze_1 = __importDefault(require("./depanalyze"));
 const net_1 = __importDefault(require("net"));
+const path_1 = __importDefault(require("path"));
 const default_port = 50000;
 exports.depAnalyze = new depanalyze_1.default();
 exports.depAnalyze.init();
@@ -31,9 +32,10 @@ function isPortOpen(port = default_port) {
 exports.isPortOpen = isPortOpen;
 function run_server(port = default_port) {
     const app = (0, express_1.default)();
+    app.use(express_1.default.static("vue"));
     // GET https://localhost:50000/
     app.get("/", (res, req) => {
-        req.send("Hello World!");
+        req.sendFile(path_1.default.resolve("./vue/index.html"));
     });
     // https://localhost:50000/deplist
     app.get("/deplist", (res, rep) => {
@@ -69,7 +71,5 @@ function run_server(port = default_port) {
     app.listen(default_port, () => {
         console.log(`start a server of http://localhost:${default_port}`);
     });
-    var c = require('child_process');
-    c.exec('start http://localhost:50000/');
 }
 exports.run_server = run_server;
