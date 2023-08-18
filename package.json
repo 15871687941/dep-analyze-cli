@@ -9,8 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "pkg-cli": "./bin/bin-linux.js",
-    "pkg-cli.cmd": "./bin/bin-windows.cmd"
+    "pkg-cli": "./bin/bin-linux.js"
   },
   "author": "",
   "license": "ISC",

@@ -43,6 +43,9 @@ class DepAnalyze {
     // 获取入口模块的依赖图
     // 深度优先遍历
     readDepsGraph(ep, ev, depthLimited) {
+        if (depthLimited <= 0) {
+            return;
+        }
         // 获取该模块对应版本的依赖对象{name:ep, version:ev, dependencies:{}}
         let depConfObj = this.getDepConfigObj(ep, ev);
         // 构造节点 name&version
@@ -59,9 +62,6 @@ class DepAnalyze {
         // 检测是否为叶子节点
         if (depConfObj.dependencies === undefined) {
             this.helpQueue.pop();
-            return;
-        }
-        if (depthLimited <= 0) {
             return;
         }
         // 如果该模块有依赖对象，则遍历依赖对象，将每个依赖添加为节点，且添加该模块节点的邻接表
@@ -200,8 +200,9 @@ class DepAnalyze {
             }
         }
         const nodes = Array.from(mapNodes, ([key, val]) => {
-            return { node: key, count: val };
+            return { name: key, count: val };
         });
+        this.depGraph = new graph_1.default();
         return {
             entryPackageName: this.entryPackage,
             entryVersion: this.entryVersion,
