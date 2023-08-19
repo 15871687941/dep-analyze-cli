@@ -216,6 +216,21 @@ class DepAnalyze {
             mulPackageList: this.mulPackList
         };
     }
+    toSimpleObject() {
+        if (!this.isExecInit || !this.isExecLoad) {
+            throw new Error("请先调用init和load方法");
+        }
+        return {
+            entryPackageName: this.entryPackage,
+            entryVersion: this.entryVersion,
+            nodeCount: this.allDepList.length,
+            depth: this.depth,
+            isCircle: this.isCircle,
+            circleDepList: this.circcleDepList,
+            isMulPackage: this.isExistMulPack,
+            mulPackageList: this.mulPackList
+        };
+    }
     save(filePath = "./data/depanalyze.json") {
         if (!this.isExecInit || !this.isExecLoad) {
             throw new Error("请先调用init和load方法");

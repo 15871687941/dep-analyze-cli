@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const depanalyze_1 = __importDefault(require("./depanalyze"));
 const net_1 = __importDefault(require("net"));
 const path_1 = __importDefault(require("path"));
+const consolestyle_1 = require("./consolestyle");
 exports.default_port = 50000;
 exports.depAnalyze = new depanalyze_1.default();
 exports.depAnalyze.init();
@@ -16,6 +17,7 @@ function isPortOpen(port = exports.default_port) {
         const server = net_1.default.createServer();
         server.once('error', (err) => {
             if (err.code === 'EADDRINUSE') {
+                console.log(`Warning: ${consolestyle_1.consoleStyle.red}Server[http:127.0.0.1:50000] is running, please don't execute command[pkg-cli runserver]${consolestyle_1.consoleStyle.endStyle}`);
                 resolve(false); // 端口被占用
             }
             else {
@@ -74,8 +76,45 @@ function run_server(port = exports.default_port) {
             }
         }
     });
+    app.get("/depgraph-simple/:dep/:depth?", (res, rep) => {
+        let depObj = {};
+        let depth = res.params.depth || "-1";
+        depth = parseInt(depth);
+        if (depth < 0) {
+            depth = Infinity;
+        }
+        console.log(depth);
+        if (res.params.dep === "default") {
+            let { name, version } = require(path_1.default.join(process.cwd(), "package.json"));
+            exports.depAnalyze = new depanalyze_1.default();
+            exports.depAnalyze.init();
+            exports.depAnalyze.load(name, version, depth);
+            depObj = exports.depAnalyze.toSimpleObject();
+            rep.json(depObj);
+        }
+        else {
+            try {
+                exports.depAnalyze = new depanalyze_1.default();
+                exports.depAnalyze.init();
+                let [name, version] = res.params.dep.split("&");
+                exports.depAnalyze.load(name, version, depth);
+                depObj = exports.depAnalyze.toSimpleObject();
+                rep.json(depObj);
+            }
+            catch (e) {
+            }
+        }
+    });
     app.listen(exports.default_port, () => {
-        console.log(`starting a server of http://localhost:${exports.default_port}`);
+        // console.log(`
+        //  _____ _   ___                         
+        // |     | |_|_  |___ ___ ___ ___ ___ ___ 
+        // |   --|   |_  |   |   |   |   |   |   |
+        // |_____|_|_|___|_|_|_|_|_|_|_|_|_|_|_|_|
+        //            折腾不息 · 乐此不疲. `)
+        console.log("Starting to run a server...");
+        console.log(`Local:   %shttp://127.0.0.1:${exports.default_port}%s`, consolestyle_1.consoleStyle.green, consolestyle_1.consoleStyle.endStyle);
+        console.log(`Function:${consolestyle_1.consoleStyle.blue}graphically display the current project dependencies information${consolestyle_1.consoleStyle.endStyle}`);
     });
 }
 exports.run_server = run_server;

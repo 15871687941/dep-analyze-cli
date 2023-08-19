@@ -39,14 +39,28 @@ Arguments:
   analyze        analyze a package's dependencies with the version information
 
 Examples:
-  pkg-cli help || pkg-cli || pkg-cli analyze -h       Display help information
+  pkg-cli                                             Run a server to graphically display dependency information of the current project
+  pkg-cli help || || pkg-cli analyze -h               Display help information
+  pkg-cli runserver                                   Run a server to graphically display dependency information of the current project
   pkg-cli analyze                                     Display dependency information of the current package
   pkg-cli analyze -p=test -v=1.0.0                    Display dependency information of the package test@1.0.0
   pkg-cli analyze -d=4                                Display The first four levels dependency information of the current package
   pkg-cli analyze -j=./data/save.json                 Save dependency information of the current package
   \n`;
 try {
-    if (process.argv[2] === "help" || process.argv.slice(2).length === 0) {
+    if (process.argv.slice(2).length === 0) {
+    }
+    else if (process.argv[2] === "runserver") {
+        // 判断端口是否被占用，没有被占用则打开服务器，被占用则不执行
+        (0, server_1.isPortOpen)().then((isOpen) => {
+            if (isOpen) {
+                (0, server_1.run_server)();
+            }
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
+    else if (process.argv[2] === "help") {
         console.log(helpInfo);
     }
     else if (process.argv[2] === "analyze") {
@@ -92,7 +106,7 @@ try {
             }
             let depConfObj = (0, utils_1.getLocalDepConfObj)(pkg, ver);
             server_1.depAnalyze.load(depConfObj.name, depConfObj.version, depth);
-            console.log(server_1.depAnalyze.toObject());
+            console.log(server_1.depAnalyze.toSimpleObject());
             if (jsonPath !== "") {
                 if (jsonPath.endsWith(".json")) {
                     server_1.depAnalyze.save(jsonPath);

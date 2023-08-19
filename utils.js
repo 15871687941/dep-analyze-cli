@@ -41,13 +41,18 @@ function readModuleDependencies(base_name = process.cwd(), isLocal = true) {
     let pkgJsonFilePath = path.join(base_name, "package.json");
     if (fs.existsSync(pkgJsonFilePath)) {
         try {
+            // 一般本项目的依赖包的开发依赖都不会安装，所以使用devDependencies没有意义
             let { name, version, dependencies } = require(pkgJsonFilePath);
+            // let {name, version, devDependencies} = require(pkgJsonFilePath);
+            // if(name==="packagedepgraph"){
+            //     console.log(name, version, devDependencies);
+            // } 
             if (name && version) {
                 isLocal ? exports.localDependencies.set(name + "&" + version, { name, version, dependencies }) : exports.globalDependencies.set(name + "&" + version, { name, version, dependencies });
             }
         }
         catch (e) {
-            console.error(`Warning:${pkgJsonFilePath}解析有问题，已忽略！`);
+            // console.error(`Warning:${pkgJsonFilePath}解析有问题，已忽略！`);
         }
     }
     const dependencyList = fs.readdirSync(base_name);
@@ -81,6 +86,7 @@ function getLocalDepConfObj(packageName, version, isLocal = true) {
         }
     }
     if (depConfObj.name === "" && depConfObj.version === "") {
+        // console.log(packageName, version)
         throw new Error("该版本的模块不存在，请使用npm list [-g]查看所安装的模块");
     }
     return depConfObj;
