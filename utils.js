@@ -130,3 +130,47 @@ function getDepPkgVerList(isLocal = true) {
     return mapList;
 }
 exports.getDepPkgVerList = getDepPkgVerList;
+function checkVersion() {
+    readModuleDependencies();
+    let key = "";
+    let depConfObj;
+    for (key of exports.localDependencies.keys()) {
+        depConfObj = exports.localDependencies.get(key);
+        let dependencies = depConfObj["dependencies"];
+        let k1 = "";
+        for (k1 in dependencies) {
+            let pattern = /^[\^\~]?\d{1,}\.\d{1,}\.\d{1,}$/;
+            let version = dependencies[k1];
+            if (!pattern.test(version)) {
+                console.log(depConfObj);
+                console.log(k1, version);
+            }
+        }
+    }
+}
+// checkVersion();
+/*
+
+npm:string-width@^4.2.0
+npm:strip-ansi@^6.0.1
+npm:wrap-ansi@^7.0.0
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+^1
+*
+*
+*
+*
+^5.0.0 || ^6.0.2 || ^7.0.0
+>= 2.1.2 < 3
+^9.1.1 || ^10.0.0
+^5.0.0 || ^6.0.2 || ^7.0.0
+*/
