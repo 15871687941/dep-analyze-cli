@@ -12,6 +12,8 @@ const consolestyle_1 = require("./consolestyle");
 exports.default_port = 50000;
 exports.depAnalyze = new depanalyze_1.default();
 exports.depAnalyze.init();
+let firstRequestDepth = Infinity;
+let firstRequest = 1;
 function isPortOpen(port = exports.default_port) {
     return new Promise((resolve, reject) => {
         const server = net_1.default.createServer();
@@ -41,8 +43,6 @@ function run_server(port = exports.default_port) {
     });
     // https://localhost:50000/deplist
     app.get("/deplist", (res, rep) => {
-        exports.depAnalyze = new depanalyze_1.default();
-        exports.depAnalyze.init();
         const depList = exports.depAnalyze.getDepList();
         rep.json(depList);
     });
@@ -51,22 +51,32 @@ function run_server(port = exports.default_port) {
         let depObj = {};
         let depth = res.params.depth || "-1";
         depth = parseInt(depth);
-        if (depth < 0) {
+        // console.log(depth)
+        if (depth <= 0) {
             depth = Infinity;
         }
-        console.log(depth);
         if (res.params.dep === "default") {
+            if (firstRequest === 1) {
+                // console.log(process.argv);
+                process.argv.forEach((item, index) => {
+                    if (item.startsWith("--depth=") || item.startsWith("-d=")) {
+                        firstRequestDepth = parseInt(item.split("=")[1]);
+                        if (firstRequestDepth <= 0) {
+                            firstRequestDepth = Infinity;
+                        }
+                    }
+                });
+                firstRequest = firstRequest - 1;
+            }
+            // console.log(firstRequestDepth);
+            depth = firstRequestDepth;
             let { name, version } = require(path_1.default.join(process.cwd(), "package.json"));
-            exports.depAnalyze = new depanalyze_1.default();
-            exports.depAnalyze.init();
             exports.depAnalyze.load(name, version, depth);
             depObj = exports.depAnalyze.toObject();
             rep.json(depObj);
         }
         else {
             try {
-                exports.depAnalyze = new depanalyze_1.default();
-                exports.depAnalyze.init();
                 let [name, version] = res.params.dep.split("&");
                 exports.depAnalyze.load(name, version, depth);
                 depObj = exports.depAnalyze.toObject();
@@ -80,22 +90,17 @@ function run_server(port = exports.default_port) {
         let depObj = {};
         let depth = res.params.depth || "-1";
         depth = parseInt(depth);
-        if (depth < 0) {
+        if (depth <= 0) {
             depth = Infinity;
         }
-        console.log(depth);
         if (res.params.dep === "default") {
             let { name, version } = require(path_1.default.join(process.cwd(), "package.json"));
-            exports.depAnalyze = new depanalyze_1.default();
-            exports.depAnalyze.init();
             exports.depAnalyze.load(name, version, depth);
             depObj = exports.depAnalyze.toSimpleObject();
             rep.json(depObj);
         }
         else {
             try {
-                exports.depAnalyze = new depanalyze_1.default();
-                exports.depAnalyze.init();
                 let [name, version] = res.params.dep.split("&");
                 exports.depAnalyze.load(name, version, depth);
                 depObj = exports.depAnalyze.toSimpleObject();

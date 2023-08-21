@@ -7,14 +7,6 @@ const server_1 = require("./server");
 const utils_1 = require("./utils");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-// 判断端口是否被占用，没有被占用则打开服务器，被占用则不执行
-(0, server_1.isPortOpen)().then((isOpen) => {
-    if (isOpen) {
-        (0, server_1.run_server)();
-    }
-}).catch((err) => {
-    console.error(err);
-});
 // 命令行解析执行
 let depth = -1;
 let jsonPath = "";
@@ -39,16 +31,16 @@ Arguments:
   analyze        analyze a package's dependencies with the version information
 
 Examples:
-  pkg-cli                                             Run a server to graphically display dependency information of the current project
-  pkg-cli help || || pkg-cli analyze -h               Display help information
+  pkg-cli help || pkg-cli || pkg-cli analyze -h       Display help information
   pkg-cli runserver                                   Run a server to graphically display dependency information of the current project
-  pkg-cli analyze                                     Display dependency information of the current package
+  pkg-cli analyze                                     Display dependency information of the current package with a server
   pkg-cli analyze -p=test -v=1.0.0                    Display dependency information of the package test@1.0.0
-  pkg-cli analyze -d=4                                Display The first four levels dependency information of the current package
-  pkg-cli analyze -j=./data/save.json                 Save dependency information of the current package
+  pkg-cli analyze -d=4                                Display The first four levels dependency information of the current package with a server
+  pkg-cli analyze -j=./data/save.json                 Save dependency information of the current package with a server
   \n`;
 try {
     if (process.argv.slice(2).length === 0) {
+        console.log(helpInfo);
     }
     else if (process.argv[2] === "runserver") {
         // 判断端口是否被占用，没有被占用则打开服务器，被占用则不执行
@@ -86,7 +78,7 @@ try {
             console.log(helpInfo);
         }
         else {
-            if (depth < 0) {
+            if (depth <= 0) {
                 depth = Infinity;
             }
             if (pkg === "" && ver === "") {
@@ -94,6 +86,14 @@ try {
                     let { name, version } = require(path_1.default.join(process.cwd(), "package.json"));
                     pkg = name;
                     ver = version;
+                    // 判断端口是否被占用，没有被占用则打开服务器，被占用则不执行
+                    (0, server_1.isPortOpen)().then((isOpen) => {
+                        if (isOpen) {
+                            (0, server_1.run_server)();
+                        }
+                    }).catch((err) => {
+                        console.error(err);
+                    });
                 }
                 else {
                     throw new Error("Error:请在nodejs项目根路径下执行[analyze-cli]命令");
@@ -102,9 +102,10 @@ try {
             else if (pkg !== "" && ver !== "") {
             }
             else {
-                throw new Error("Error:命令格式--package选项和--version选项必须一起不出现或者一起出现");
+                throw new Error("Error:命令格式--package选项和--version选项必须一起出现或者一起不出现");
             }
             let depConfObj = (0, utils_1.getLocalDepConfObj)(pkg, ver);
+            // console.log(depth)
             server_1.depAnalyze.load(depConfObj.name, depConfObj.version, depth);
             console.log(server_1.depAnalyze.toSimpleObject());
             if (jsonPath !== "") {
