@@ -40,6 +40,7 @@ class DepAnalyze {
         this.entryPackage = entryPackage;
         this.entryVersion = entryVersion;
         this.readDepsGraph(entryPackage, entryVersion, depthLimited);
+        this.hasMulPack();
         // this.depth += 1;
         // console.log(this.toObject());
     }
@@ -269,12 +270,12 @@ class DepAnalyze {
     }
 }
 exports.default = DepAnalyze;
-// const depAnalyze = new DepAnalyze();
-// depAnalyze.init();
+const depAnalyze = new DepAnalyze();
+depAnalyze.init();
 // // "acorn", "8.10.0" 1
 // // "glob", "10.3.3"
 // // "express","4.18.2"
-// depAnalyze.load("packagedepgraph", "1.0.0", 4);
-// console.log(depAnalyze.toSimpleObject());
+depAnalyze.load("packagedepgraph", "1.0.0", 8);
+console.log(depAnalyze.toSimpleObject());
 // depAnalyze.save();
 // console.log("first");

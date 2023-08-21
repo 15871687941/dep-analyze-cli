@@ -79,15 +79,19 @@ function getLocalDepConfObj(packageName, version, isLocal = true) {
             depConfObj = (isLocal ? exports.localDependencies : exports.globalDependencies).get(key);
             break;
         }
-        // 为了能跑起来，先舍弃一部分，把保证包名一致就可以了
-        if (key.split("&").at(0) === packageName) {
-            depConfObj = (isLocal ? exports.localDependencies : exports.globalDependencies).get(key);
-            break;
-        }
     }
     if (depConfObj.name === "" && depConfObj.version === "") {
-        // console.log(packageName, version)
-        throw new Error("该版本的模块不存在，请使用npm list [-g]查看所安装的模块");
+        for (key of Array.from(exports.localDependencies.keys())) {
+            // 为了能跑起来，先舍弃一部分，把保证包名一致就可以了
+            if (key.split("&").at(0) === packageName) {
+                depConfObj = (isLocal ? exports.localDependencies : exports.globalDependencies).get(key);
+                break;
+            }
+        }
+        if (depConfObj.name === "" && depConfObj.version === "") {
+            // console.log(packageName, version)
+            throw new Error("该版本的模块不存在，请使用npm list [-g]查看所安装的模块");
+        }
     }
     return depConfObj;
 }
