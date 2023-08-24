@@ -1,5 +1,5 @@
 {
-  "name": "packagedepgraph",
+  "name": "dep-analyze-cli",
   "version": "1.0.0",
   "description": "list all the deps of the package",
   "main": "./index.js",
@@ -21,7 +21,7 @@
     ]
   },
   "bin": {
-    "pkg-cli": "bin/bin-linux.js"
+    "dep-analyze-cli": "bin/bin-linux.js"
   },
   "author": "",
   "license": "ISC",
@@ -34,7 +34,6 @@
     "@typescript-eslint/eslint-plugin": "^6.4.1",
     "@typescript-eslint/parser": "^6.4.1",
     "eslint": "^8.47.0",
-    "glob": "^10.3.3",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "open": "^9.1.0",

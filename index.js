@@ -14,10 +14,10 @@ let pkg = '';
 let ver = '';
 let helpFlag = false;
 // 帮助提示信息 待填写
-const helpInfo = `\nUsage: pkg-cli [arguments] [options] 
+const helpInfo = `\nUsage: dep-analyze-cli [arguments] [options] 
 
 Description:
-  pkg-cli can display dependency information of the package and run a server to graphical display
+  dep-analyze-cli can display dependency information of the package and run a server to graphical display
 
 Options:
   -h, --help     Display help information
@@ -31,12 +31,12 @@ Arguments:
   analyze        analyze a package's dependencies with the version information
 
 Examples:
-  pkg-cli help || pkg-cli || pkg-cli analyze -h       Display help information
-  pkg-cli runserver                                   Run a server to graphically display dependency information of the current project
-  pkg-cli analyze                                     Display dependency information of the current package with a server
-  pkg-cli analyze -p=test -v=1.0.0                    Display dependency information of the package test@1.0.0
-  pkg-cli analyze -d=4                                Display The first four levels dependency information of the current package with a server
-  pkg-cli analyze -j=./data/save.json                 Save dependency information of the current package with a server
+  dep-analyze-cli help || dep-analyze-cli || dep-analyze-cli analyze -h       Display help information
+  dep-analyze-cli runserver                                                   Run a server to graphically display dependency information of the current project
+  dep-analyze-cli analyze                                                     Display dependency information of the current package with a server
+  dep-analyze-cli analyze -p=test -v=1.0.0                                    Display dependency information of the package test@1.0.0
+  dep-analyze-cli analyze -d=4                                                Display The first four levels dependency information of the current package with a server
+  dep-analyze-cli analyze -j=./data/save.json                                 Save dependency information of the current package with a server
   \n`;
 try {
     if (process.argv.slice(2).length === 0) {
