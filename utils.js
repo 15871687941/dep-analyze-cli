@@ -27,7 +27,7 @@ exports.getDepPkgVerList = exports.getGlobalDepConfObj = exports.getLocalDepConf
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const versionmanage_1 = require("./versionmanage");
-var globalModulesPath = path.resolve(process.execPath, "../../lib/node_modules");
+const globalModulesPath = path.resolve(process.execPath, '../../lib/node_modules');
 exports.localDependencies = new Map();
 exports.globalDependencies = new Map();
 // 使用递归遍历算法，遍历给定目录下的所有依赖，并根据给定参数在相应列表中
@@ -38,17 +38,27 @@ function readModuleDependencies(base_name = process.cwd(), isLocal = true) {
     if (!fs.statSync(base_name).isDirectory()) {
         return;
     }
-    let pkgJsonFilePath = path.join(base_name, "package.json");
+    const pkgJsonFilePath = path.join(base_name, 'package.json');
     if (fs.existsSync(pkgJsonFilePath)) {
         try {
             // 一般本项目的依赖包的开发依赖都不会安装，所以使用devDependencies没有意义
-            let { name, version, dependencies } = require(pkgJsonFilePath);
+            const { name, version, dependencies } = require(pkgJsonFilePath);
             // let {name, version, devDependencies} = require(pkgJsonFilePath);
             // if(name==="packagedepgraph"){
             //     console.log(name, version, devDependencies);
-            // } 
+            // }
             if (name && version) {
-                isLocal ? exports.localDependencies.set(name + "&" + version, { name, version, dependencies }) : exports.globalDependencies.set(name + "&" + version, { name, version, dependencies });
+                isLocal
+                    ? exports.localDependencies.set(name + '&' + version, {
+                        name,
+                        version,
+                        dependencies,
+                    })
+                    : exports.globalDependencies.set(name + '&' + version, {
+                        name,
+                        version,
+                        dependencies,
+                    });
             }
         }
         catch (e) {
@@ -56,8 +66,8 @@ function readModuleDependencies(base_name = process.cwd(), isLocal = true) {
         }
     }
     const dependencyList = fs.readdirSync(base_name);
-    let packageConfig;
-    dependencyList.forEach((item, index) => {
+    // let packageConfig: DepConfObj;
+    dependencyList.forEach((item) => {
         const subDir = path.join(base_name, item);
         readModuleDependencies(subDir, isLocal);
     });
@@ -70,88 +80,104 @@ function dependencyInit() {
 exports.dependencyInit = dependencyInit;
 // 给定参数满足语义化版本规范就可以了
 function getLocalDepConfObj(packageName, version, isLocal = true) {
-    let depConfObj = { "name": "", "version": "", "dependencies": undefined };
-    let key = "";
+    let depConfObj = {
+        name: '',
+        version: '',
+        dependencies: undefined,
+    };
+    let key = '';
     const fullPackage = (0, versionmanage_1.analyseVersion)(packageName, version);
-    version = fullPackage.reg + [fullPackage.firstVer, fullPackage.secondVer, fullPackage.fixVer].join(".");
+    version =
+        fullPackage.reg +
+            [fullPackage.firstVer, fullPackage.secondVer, fullPackage.fixVer].join('.');
     for (key of Array.from(exports.localDependencies.keys())) {
-        if ((0, versionmanage_1.isEqualVersion)(key.split("&").at(0), key.split("&").at(1), fullPackage.packageName, version)) {
+        if ((0, versionmanage_1.isEqualVersion)(key.split('&').at(0), key.split('&').at(1), fullPackage.packageName, version)) {
             depConfObj = (isLocal ? exports.localDependencies : exports.globalDependencies).get(key);
             break;
         }
     }
-    if (depConfObj.name === "" && depConfObj.version === "") {
+    if (depConfObj.name === '' && depConfObj.version === '') {
         for (key of Array.from(exports.localDependencies.keys())) {
             // 为了能跑起来，先舍弃一部分，把保证包名一致就可以了
-            if (key.split("&").at(0) === packageName) {
+            if (key.split('&').at(0) === packageName) {
                 depConfObj = (isLocal ? exports.localDependencies : exports.globalDependencies).get(key);
                 break;
             }
         }
-        if (depConfObj.name === "" && depConfObj.version === "") {
+        if (depConfObj.name === '' && depConfObj.version === '') {
             // console.log(packageName, version)
-            throw new Error("该版本的模块不存在，请使用npm list [-g]查看所安装的模块");
+            throw new Error('该版本的模块不存在，请使用npm list [-g]查看所安装的模块');
         }
     }
     return depConfObj;
 }
 exports.getLocalDepConfObj = getLocalDepConfObj;
 function getGlobalDepConfObj(packageName, version, isLocal = false) {
-    let depConfObj = { "name": "", "version": "", "dependencies": undefined };
-    let key = "";
+    let depConfObj = {
+        name: '',
+        version: '',
+        dependencies: undefined,
+    };
+    let key = '';
     const fullPackage = (0, versionmanage_1.analyseVersion)(packageName, version);
-    version = fullPackage.reg + [fullPackage.firstVer, fullPackage.secondVer, fullPackage.fixVer].join(".");
-    for (key of Array.from(exports.localDependencies.keys())) {
-        if ((0, versionmanage_1.isEqualVersion)(key.split("&").at(0), key.split("&").at(1), fullPackage.packageName, version)) {
-            depConfObj = (isLocal ? exports.localDependencies : exports.globalDependencies).get(key);
-            break;
-        }
-        // 为了能跑起来，先舍弃一部分，把保证包名一致就可以了
-        if (key.split("&").at(0) === packageName) {
+    version =
+        fullPackage.reg +
+            [fullPackage.firstVer, fullPackage.secondVer, fullPackage.fixVer].join('.');
+    for (key of Array.from((isLocal ? exports.localDependencies : exports.globalDependencies).keys())) {
+        if ((0, versionmanage_1.isEqualVersion)(key.split('&').at(0), key.split('&').at(1), fullPackage.packageName, version)) {
             depConfObj = (isLocal ? exports.localDependencies : exports.globalDependencies).get(key);
             break;
         }
     }
-    if (depConfObj.name === "" && depConfObj.version === "") {
-        console.log(packageName, version);
-        throw new Error("该版本的模块不存在，请使用npm list [-g]查看所安装的模块");
+    if (depConfObj.name === '' && depConfObj.version === '') {
+        for (key of Array.from(exports.localDependencies.keys())) {
+            // 为了能跑起来，先舍弃一部分，把保证包名一致就可以了
+            if (key.split('&').at(0) === packageName) {
+                depConfObj = (isLocal ? exports.localDependencies : exports.globalDependencies).get(key);
+                break;
+            }
+        }
+        if (depConfObj.name === '' && depConfObj.version === '') {
+            // console.log(packageName, version)
+            throw new Error('该版本的模块不存在，请使用npm list [-g]查看所安装的模块');
+        }
     }
     return depConfObj;
 }
 exports.getGlobalDepConfObj = getGlobalDepConfObj;
 function getDepPkgVerList(isLocal = true) {
-    let mapList = [];
-    let packageName = "";
-    let version = "";
-    let key = "";
+    const mapList = [];
+    let packageName = '';
+    let version = '';
+    let key = '';
     let map;
-    for (key of Array.from((isLocal ? exports.localDependencies.keys() : exports.globalDependencies.keys()))) {
-        packageName = key.split("&").at(0);
-        version = key.split("&").at(1);
+    for (key of Array.from(isLocal ? exports.localDependencies.keys() : exports.globalDependencies.keys())) {
+        packageName = key.split('&').at(0);
+        version = key.split('&').at(1);
         map = { packageName, version };
         mapList.push(map);
     }
     return mapList;
 }
 exports.getDepPkgVerList = getDepPkgVerList;
-function checkVersion() {
-    readModuleDependencies();
-    let key = "";
-    let depConfObj;
-    for (key of exports.localDependencies.keys()) {
-        depConfObj = exports.localDependencies.get(key);
-        let dependencies = depConfObj["dependencies"];
-        let k1 = "";
-        for (k1 in dependencies) {
-            let pattern = /^[\^\~]?\d{1,}\.\d{1,}\.\d{1,}$/;
-            let version = dependencies[k1];
-            if (!pattern.test(version)) {
-                console.log(depConfObj);
-                console.log(k1, version);
-            }
-        }
-    }
-}
+// function checkVersion(){
+//     readModuleDependencies();
+//     let key:string = "";
+//     let depConfObj:DepConfObj;
+//     for(key of localDependencies.keys()){
+//         depConfObj = localDependencies.get(key) as DepConfObj;
+//         const dependencies:{[key:string]:string} = depConfObj["dependencies"] as {[key:string]:string};
+//         let k1:string="";
+//         for(k1 in dependencies){
+//             const pattern:RegExp = /^[\^\~]?\d{1,}\.\d{1,}\.\d{1,}$/;
+//             const version:string = dependencies[k1];
+//             if(!pattern.test(version)){
+//                 console.log(depConfObj);
+//                 console.log(k1, version);
+//             }
+//         }
+//     }
+// }
 // checkVersion();
 /*
 

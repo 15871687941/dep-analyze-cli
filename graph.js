@@ -31,8 +31,8 @@ class GraphByAdjacencyList {
         return undefined;
     }
     getNodes() {
-        let ns = [];
-        for (let n of Array.from(this.nodes.keys())) {
+        const ns = [];
+        for (const n of Array.from(this.nodes.keys())) {
             ns.push(n);
         }
         return ns;

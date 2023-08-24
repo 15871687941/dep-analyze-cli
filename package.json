@@ -8,8 +8,20 @@
     "build": "tsc && cp ./package.json ../packagedepgraph-use/package.json && cp -r ./vue ../packagedepgraph-use/vue",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./**/*.{ts, json}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "bin": {
-    "pkg-cli": "./bin/bin-linux.js"
+    "pkg-cli": "bin/bin-linux.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,9 +31,16 @@
   "devDependencies": {
     "@types/express": "^4.17.17",
     "@types/node": "^20.4.9",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "eslint": "^8.47.0",
     "glob": "^10.3.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "open": "^9.1.0",
+    "prettier": "^3.0.2",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
-  }
+  },
+  "keywords": []
 }

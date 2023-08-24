@@ -11,8 +11,8 @@ class DepAnalyze {
     constructor() {
         this.depGraph = new graph_1.default();
         this.depth = 0;
-        this.entryPackage = "";
-        this.entryVersion = "";
+        this.entryPackage = '';
+        this.entryVersion = '';
         this.isCircle = false;
         this.circcleDepList = [];
         this.isExistMulPack = false;
@@ -33,7 +33,7 @@ class DepAnalyze {
     }
     load(entryPackage, entryVersion, depthLimited) {
         if (!this.isExecInit) {
-            throw new Error("请先执行init方法，初始化环境");
+            throw new Error('请先执行init方法，初始化环境');
         }
         this.isExecLoad = true;
         this.clear();
@@ -47,8 +47,8 @@ class DepAnalyze {
     clear() {
         this.depGraph = new graph_1.default();
         this.depth = 0;
-        this.entryPackage = "";
-        this.entryVersion = "";
+        this.entryPackage = '';
+        this.entryVersion = '';
         this.isCircle = false;
         this.circcleDepList = [];
         this.isExistMulPack = false;
@@ -64,16 +64,17 @@ class DepAnalyze {
             return;
         }
         // 获取该模块对应版本的依赖对象{name:ep, version:ev, dependencies:{}}
-        let depConfObj = this.getDepConfigObj(ep, ev);
+        const depConfObj = this.getDepConfigObj(ep, ev);
         // 构造节点 name&version
-        let node = depConfObj.name + "&" + depConfObj.version;
+        const node = depConfObj.name + '&' + depConfObj.version;
         // 添加节点
         this.depGraph.addNode(node);
         if (!this.allDepList.includes(node)) {
             this.allDepList.push(node);
         }
         this.helpQueue.push(node);
-        this.depth = this.helpQueue.length > this.depth ? this.helpQueue.length : this.depth;
+        this.depth =
+            this.helpQueue.length > this.depth ? this.helpQueue.length : this.depth;
         this.visited[this.allDepList.indexOf(node)] = true;
         depthLimited = depthLimited - 1;
         if (depthLimited <= 0) {
@@ -86,22 +87,22 @@ class DepAnalyze {
             return;
         }
         // 如果该模块有依赖对象，则遍历依赖对象，将每个依赖添加为节点，且添加该模块节点的邻接表
-        let deps = new Map(Object.entries(depConfObj.dependencies));
-        let depName = "";
-        let verName = "";
+        const deps = new Map(Object.entries(depConfObj.dependencies));
+        let depName = '';
+        let verName = '';
         let depConfObj1;
-        let depNode = "";
+        let depNode = '';
         for (depName of deps.keys()) {
             verName = deps.get(depName);
             depConfObj1 = this.getDepConfigObj(depName, verName);
-            depNode = depConfObj1.name + "&" + depConfObj1.version;
+            depNode = depConfObj1.name + '&' + depConfObj1.version;
             this.depGraph.addNode(depNode);
             if (!this.allDepList.includes(depNode)) {
                 this.allDepList.push(depNode);
             }
             this.depGraph.addEdge(node, depNode);
         }
-        let i = 0;
+        // const i:number = 0;
         for (let w = this.depGraph.getFirstNeighbor(node); w !== undefined; w = this.depGraph.getNextNeighbor(node, w)) {
             // 即将遍历w节点
             // 解决循环依赖问题
@@ -116,7 +117,7 @@ class DepAnalyze {
             }
             // 解决多次访问一个节点的问题
             if (!this.visited[this.allDepList.indexOf(w)]) {
-                this.readDepsGraph(w.split("&").at(0), w.split("&").at(1), depthLimited);
+                this.readDepsGraph(w.split('&').at(0), w.split('&').at(1), depthLimited);
             }
         }
         this.helpQueue.pop();
@@ -156,34 +157,34 @@ class DepAnalyze {
     // }
     getDepth() {
         if (!this.isExecInit || !this.isExecLoad) {
-            throw new Error("请先调用init和load方法");
+            throw new Error('请先调用init和load方法');
         }
         return this.depth;
     }
     hasCircleDep() {
         if (!this.isExecInit || !this.isExecLoad) {
-            throw new Error("请先调用init和load方法");
+            throw new Error('请先调用init和load方法');
         }
         return this.isCircle;
     }
     hasMulPack() {
         if (!this.isExecInit || !this.isExecLoad) {
-            throw new Error("请先调用init和load方法");
+            throw new Error('请先调用init和load方法');
         }
         let nodes = this.depGraph.getNodes();
-        let pNodes = [];
+        const pNodes = [];
         if (nodes.length < 2) {
             return this.isExistMulPack;
         }
         nodes = nodes.sort();
-        nodes.forEach((item, index) => {
-            pNodes.push(item.split("&").at(0));
+        nodes.forEach((item) => {
+            pNodes.push(item.split('&').at(0));
         });
         let startPos = 0;
         for (let i = 1; i < pNodes.length; i++) {
             if (pNodes[startPos] !== pNodes[i]) {
-                if ((i - startPos) >= 2) {
-                    this.mulPackList.push(new Set(nodes.slice(startPos, i)));
+                if (i - startPos >= 2) {
+                    this.mulPackList.push(Array.from(nodes.slice(startPos, i)));
                 }
                 startPos = i;
             }
@@ -192,11 +193,11 @@ class DepAnalyze {
         return this.isExistMulPack;
     }
     getDepList() {
-        let depList = (0, utils_1.getDepPkgVerList)();
-        let depsString = [];
-        for (let index in depList) {
-            const dep = depList[index];
-            depsString.push(`${depList[index]["packageName"]}:${depList[index].version}`);
+        const depList = (0, utils_1.getDepPkgVerList)();
+        const depsString = [];
+        for (const index in depList) {
+            // const dep = depList[index];
+            depsString.push(`${depList[index]['packageName']}:${depList[index].version}`);
         }
         depsString.sort();
         return depsString;
@@ -204,13 +205,13 @@ class DepAnalyze {
     toObject() {
         // console.log(this.depGraph);
         if (!this.isExecInit || !this.isExecLoad) {
-            throw new Error("请先调用init和load方法");
+            throw new Error('请先调用init和load方法');
         }
         const links = [];
         const mapNodes = new Map();
         mapNodes.set(`${this.entryPackage}&${this.entryVersion}`, 0);
-        for (let source of this.depGraph.getNodes()) {
-            for (let target of this.depGraph.getNeighbors(source)) {
+        for (const source of this.depGraph.getNodes()) {
+            for (const target of this.depGraph.getNeighbors(source)) {
                 links.push({ source, target });
                 if (mapNodes.has(target)) {
                     mapNodes.set(target, mapNodes.get(target) + 1);
@@ -233,12 +234,12 @@ class DepAnalyze {
             isCircle: this.isCircle,
             circleDepList: this.circcleDepList,
             isMulPackage: this.isExistMulPack,
-            mulPackageList: this.mulPackList
+            mulPackageList: this.mulPackList,
         };
     }
     toSimpleObject() {
         if (!this.isExecInit || !this.isExecLoad) {
-            throw new Error("请先调用init和load方法");
+            throw new Error('请先调用init和load方法');
         }
         return {
             entryPackageName: this.entryPackage,
@@ -248,14 +249,14 @@ class DepAnalyze {
             isCircle: this.isCircle,
             circleDepList: this.circcleDepList,
             isMulPackage: this.isExistMulPack,
-            mulPackageList: this.mulPackList
+            mulPackageList: this.mulPackList,
         };
     }
-    save(filePath = "./data/depanalyze.json") {
+    save(filePath = './data/depanalyze.json') {
         if (!this.isExecInit || !this.isExecLoad) {
-            throw new Error("请先调用init和load方法");
+            throw new Error('请先调用init和load方法');
         }
-        const parentPath = path_1.default.resolve(filePath, "..");
+        const parentPath = path_1.default.resolve(filePath, '..');
         if (!fs_1.default.existsSync(parentPath)) {
             fs_1.default.mkdirSync(parentPath);
         }
@@ -264,18 +265,18 @@ class DepAnalyze {
                 console.log(err);
             }
             else {
-                console.log("保存成功");
+                console.log('保存成功');
             }
         });
     }
 }
 exports.default = DepAnalyze;
-const depAnalyze = new DepAnalyze();
-depAnalyze.init();
+// const depAnalyze = new DepAnalyze();
+// depAnalyze.init();
 // // "acorn", "8.10.0" 1
 // // "glob", "10.3.3"
 // // "express","4.18.2"
-depAnalyze.load("packagedepgraph", "1.0.0", 8);
-console.log(depAnalyze.toSimpleObject());
+// depAnalyze.load("packagedepgraph", "1.0.0", 8);
+// console.log(depAnalyze.toSimpleObject());
 // depAnalyze.save();
 // console.log("first");

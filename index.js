@@ -9,9 +9,9 @@ const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 // 命令行解析执行
 let depth = -1;
-let jsonPath = "";
-let pkg = "";
-let ver = "";
+let jsonPath = '';
+let pkg = '';
+let ver = '';
 let helpFlag = false;
 // 帮助提示信息 待填写
 const helpInfo = `\nUsage: pkg-cli [arguments] [options] 
@@ -42,35 +42,37 @@ try {
     if (process.argv.slice(2).length === 0) {
         console.log(helpInfo);
     }
-    else if (process.argv[2] === "runserver") {
+    else if (process.argv[2] === 'runserver') {
         // 判断端口是否被占用，没有被占用则打开服务器，被占用则不执行
-        (0, server_1.isPortOpen)().then((isOpen) => {
+        (0, server_1.isPortOpen)()
+            .then((isOpen) => {
             if (isOpen) {
                 (0, server_1.run_server)();
             }
-        }).catch((err) => {
+        })
+            .catch((err) => {
             console.error(err);
         });
     }
-    else if (process.argv[2] === "help") {
+    else if (process.argv[2] === 'help') {
         console.log(helpInfo);
     }
-    else if (process.argv[2] === "analyze") {
+    else if (process.argv[2] === 'analyze') {
         const argv = process.argv.slice(3);
-        argv.forEach((item, index) => {
-            if (item.startsWith("--depth=") || item.startsWith("-d=")) {
-                depth = parseInt(item.split("=")[1]);
+        argv.forEach((item) => {
+            if (item.startsWith('--depth=') || item.startsWith('-d=')) {
+                depth = parseInt(item.split('=')[1]);
             }
-            else if (item.startsWith("--json=") || item.startsWith("-j=")) {
-                jsonPath = item.split("=")[1];
+            else if (item.startsWith('--json=') || item.startsWith('-j=')) {
+                jsonPath = item.split('=')[1];
             }
-            else if (item.startsWith("--package=") || item.startsWith("-p=")) {
-                pkg = item.split("=")[1];
+            else if (item.startsWith('--package=') || item.startsWith('-p=')) {
+                pkg = item.split('=')[1];
             }
-            else if (item.startsWith("--version=") || item.startsWith("-v=")) {
-                ver = item.split("=")[1];
+            else if (item.startsWith('--version=') || item.startsWith('-v=')) {
+                ver = item.split('=')[1];
             }
-            else if (item.startsWith("--help" || item.startsWith("-h"))) {
+            else if (item.startsWith('--help' || item.startsWith('-h'))) {
                 helpFlag = true;
             }
         });
@@ -81,35 +83,38 @@ try {
             if (depth <= 0) {
                 depth = Infinity;
             }
-            if (pkg === "" && ver === "") {
-                if (fs_1.default.existsSync(path_1.default.join(process.cwd(), "package.json"))) {
-                    let { name, version } = require(path_1.default.join(process.cwd(), "package.json"));
+            if (pkg === '' && ver === '') {
+                if (fs_1.default.existsSync(path_1.default.join(process.cwd(), 'package.json'))) {
+                    const { name, version } = require(path_1.default.join(process.cwd(), 'package.json'));
                     pkg = name;
                     ver = version;
                     // 判断端口是否被占用，没有被占用则打开服务器，被占用则不执行
-                    (0, server_1.isPortOpen)().then((isOpen) => {
+                    (0, server_1.isPortOpen)()
+                        .then((isOpen) => {
                         if (isOpen) {
                             (0, server_1.run_server)();
                         }
-                    }).catch((err) => {
+                    })
+                        .catch((err) => {
                         console.error(err);
                     });
                 }
                 else {
-                    throw new Error("Error:请在nodejs项目根路径下执行[analyze-cli]命令");
+                    throw new Error('Error:请在nodejs项目根路径下执行[analyze-cli]命令');
                 }
             }
-            else if (pkg !== "" && ver !== "") {
+            else if (pkg !== '' && ver !== '') {
+                // pkg !== "" && ver !=="";
             }
             else {
-                throw new Error("Error:命令格式--package选项和--version选项必须一起出现或者一起不出现");
+                throw new Error('Error:命令格式--package选项和--version选项必须一起出现或者一起不出现');
             }
-            let depConfObj = (0, utils_1.getLocalDepConfObj)(pkg, ver);
+            const depConfObj = (0, utils_1.getLocalDepConfObj)(pkg, ver);
             // console.log(depth)
             server_1.depAnalyze.load(depConfObj.name, depConfObj.version, depth);
             console.log(server_1.depAnalyze.toSimpleObject());
-            if (jsonPath !== "") {
-                if (jsonPath.endsWith(".json")) {
+            if (jsonPath !== '') {
+                if (jsonPath.endsWith('.json')) {
                     server_1.depAnalyze.save(jsonPath);
                 }
             }
