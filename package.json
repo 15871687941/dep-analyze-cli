@@ -1,6 +1,6 @@
 {
   "name": "dep-analyze-cli",
-  "version": "1.2.0",
+  "version": "1.1.0",
   "description": "display dependency information of the package and run a server to graphical display",
   "main": "./index.js",
   "scripts": {
