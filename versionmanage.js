@@ -1,6 +1,30 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isEqualVersion = exports.analyseVersion = void 0;
+const semver = __importStar(require("semver"));
 /*
  *function:解析包名和版本名
  *pk:string 包名：glob
@@ -64,6 +88,30 @@ function isEqualVersion(pk1, v1, pk2, v2) {
     const fullPackage2 = analyseVersion(pk2, v2);
     if (pk1 !== pk2) {
         return false;
+    }
+    /*
+    semver`库支持以下语义化版本比对：
+    1. 等于（Equal）：`=` 或 `==`。例如，`1.2.3 = 1.2.3`。
+
+    2. 不等于（Not equal）：`!=`。例如，`1.2.3 != 2.0.0`。
+
+    3. 大于（Greater than）：`>`。例如，`2.0.0 > 1.2.3`。
+
+    4. 大于等于（Greater than or equal）：`>=`。例如，`2.0.0 >= 1.2.3`。
+
+    5. 小于（Less than）：`<`。例如，`1.2.3 < 2.0.0`。
+
+    6. 小于等于（Less than or equal）：`<=`。例如，`1.2.3 <= 2.0.0`。
+
+    7. 范围（Range）：使用类似 `^`、`~`、`>=`、`<=`、`>`、`<` 等符号来定义范围。例如，`^1.2.3` 表示大于等于 `1.2.3` 且小于 `2.0.0`。
+
+    8. 预发布版本（Prerelease）：可以使用 `-` 或 `--` 来指定预发布版本。例如，`1.2.3-alpha`。
+
+    9. 版本范围（Range set）：可以使用逗号 `,` 来指定多个版本范围。例如，`1.2.3, 2.0.0`。
+*/
+    // 使用semver使程序更加健壮
+    if (semver.satisfies(v1, v2)) {
+        return true;
     }
     if (fullPackage2.reg === '^') {
         return fullPackage1.firstVer === fullPackage2.firstVer;

@@ -55,7 +55,7 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 var require_index_001 = __commonJS({
-  "assets/index-f6f141a7.js"(exports, module) {
+  "assets/index-0a3533b2.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -10578,7 +10578,7 @@ var require_index_001 = __commonJS({
     };
     const _hoisted_1$f = ["role"];
     const _hoisted_2$b = ["id", "type", "disabled", "formatter", "parser", "readonly", "autocomplete", "tabindex", "aria-label", "placeholder", "form"];
-    const _hoisted_3$7 = ["id", "tabindex", "disabled", "readonly", "autocomplete", "aria-label", "placeholder", "form"];
+    const _hoisted_3$8 = ["id", "tabindex", "disabled", "readonly", "autocomplete", "aria-label", "placeholder", "form"];
     const __default__$u = defineComponent({
       name: "ElInput",
       inheritAttrs: false
@@ -10991,7 +10991,7 @@ var require_index_001 = __commonJS({
                 onBlur: _cache[3] || (_cache[3] = (...args) => unref(handleBlur) && unref(handleBlur)(...args)),
                 onChange: handleChange,
                 onKeydown: handleKeydown
-              }), null, 16, _hoisted_3$7),
+              }), null, 16, _hoisted_3$8),
               unref(isWordLimitVisible) ? (openBlock(), createElementBlock("span", {
                 key: 0,
                 style: normalizeStyle(countStyle.value),
@@ -13018,7 +13018,7 @@ var require_index_001 = __commonJS({
     };
     const _hoisted_1$d = ["aria-expanded", "aria-owns"];
     const _hoisted_2$9 = { key: 0 };
-    const _hoisted_3$6 = ["id", "aria-selected", "onClick"];
+    const _hoisted_3$7 = ["id", "aria-selected", "onClick"];
     const COMPONENT_NAME$3 = "ElAutocomplete";
     const __default__$l = defineComponent({
       name: COMPONENT_NAME$3,
@@ -13284,7 +13284,7 @@ var require_index_001 = __commonJS({
                         renderSlot(_ctx.$slots, "default", { item }, () => [
                           createTextVNode(toDisplayString(item[_ctx.valueKey]), 1)
                         ])
-                      ], 10, _hoisted_3$6);
+                      ], 10, _hoisted_3$7);
                     }), 128))
                   ]),
                   _: 3
@@ -16818,7 +16818,7 @@ var require_index_001 = __commonJS({
     });
     const _hoisted_1$9 = ["disabled", "autocomplete"];
     const _hoisted_2$8 = ["disabled"];
-    const _hoisted_3$5 = { style: { "height": "100%", "display": "flex", "justify-content": "center", "align-items": "center" } };
+    const _hoisted_3$6 = { style: { "height": "100%", "display": "flex", "justify-content": "center", "align-items": "center" } };
     function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
       const _component_el_tag = resolveComponent("el-tag");
       const _component_el_tooltip = resolveComponent("el-tooltip");
@@ -17086,7 +17086,7 @@ var require_index_001 = __commonJS({
                 _ctx.$slots.prefix ? {
                   name: "prefix",
                   fn: withCtx(() => [
-                    createBaseVNode("div", _hoisted_3$5, [
+                    createBaseVNode("div", _hoisted_3$6, [
                       renderSlot(_ctx.$slots, "prefix")
                     ])
                   ])
@@ -17268,7 +17268,7 @@ var require_index_001 = __commonJS({
     });
     const _hoisted_1$8 = ["aria-valuenow"];
     const _hoisted_2$7 = { viewBox: "0 0 100 100" };
-    const _hoisted_3$4 = ["d", "stroke", "stroke-linecap", "stroke-width"];
+    const _hoisted_3$5 = ["d", "stroke", "stroke-linecap", "stroke-width"];
     const _hoisted_4$4 = ["d", "stroke", "opacity", "stroke-linecap", "stroke-width"];
     const _hoisted_5$4 = { key: 0 };
     const __default__$6 = defineComponent({
@@ -17431,7 +17431,7 @@ var require_index_001 = __commonJS({
                   "stroke-width": unref(relativeStrokeWidth),
                   fill: "none",
                   style: normalizeStyle(unref(trailPathStyle))
-                }, null, 14, _hoisted_3$4),
+                }, null, 14, _hoisted_3$5),
                 createBaseVNode("path", {
                   class: normalizeClass(unref(ns).be("circle", "path")),
                   d: unref(trackPath),
@@ -17556,7 +17556,7 @@ var require_index_001 = __commonJS({
     };
     const _hoisted_1$7 = ["onClick"];
     const _hoisted_2$6 = ["id", "aria-checked", "aria-disabled", "name", "true-value", "false-value", "disabled", "tabindex", "onKeydown"];
-    const _hoisted_3$3 = ["aria-hidden"];
+    const _hoisted_3$4 = ["aria-hidden"];
     const _hoisted_4$3 = ["aria-hidden"];
     const _hoisted_5$3 = ["aria-hidden"];
     const COMPONENT_NAME$1 = "ElSwitch";
@@ -17727,7 +17727,7 @@ var require_index_001 = __commonJS({
               !_ctx.inactiveIcon && _ctx.inactiveText ? (openBlock(), createElementBlock("span", {
                 key: 1,
                 "aria-hidden": unref(checked)
-              }, toDisplayString(_ctx.inactiveText), 9, _hoisted_3$3)) : createCommentVNode("v-if", true)
+              }, toDisplayString(_ctx.inactiveText), 9, _hoisted_3$4)) : createCommentVNode("v-if", true)
             ], 2)) : createCommentVNode("v-if", true),
             createBaseVNode("span", {
               ref_key: "core",
@@ -18004,7 +18004,7 @@ var require_index_001 = __commonJS({
     };
     const _hoisted_1$6 = ["onKeydown"];
     const _hoisted_2$5 = ["src"];
-    const _hoisted_3$2 = ["onClick"];
+    const _hoisted_3$3 = ["onClick"];
     const _hoisted_4$2 = ["title"];
     const _hoisted_5$2 = ["onClick"];
     const _hoisted_6$2 = ["onClick"];
@@ -18076,7 +18076,7 @@ var require_index_001 = __commonJS({
                           class: normalizeClass(unref(nsUpload).be("list", "item-file-name")),
                           title: file.name
                         }, toDisplayString(file.name), 11, _hoisted_4$2)
-                      ], 10, _hoisted_3$2),
+                      ], 10, _hoisted_3$3),
                       file.status === "uploading" ? (openBlock(), createBlock(unref(ElProgress), {
                         key: 0,
                         type: _ctx.listType === "picture-card" ? "circle" : "line",
@@ -34417,8 +34417,7 @@ var require_index_001 = __commonJS({
     };
     const getNodeDetail = (name) => {
       return request({
-        // 第二个参数depth没影响, 默认10
-        url: `/depgraph-simple/${name}/10`,
+        url: `/depgraph-simple/${encodeURIComponent(name)}`,
         method: "get"
       });
     };
@@ -34426,8 +34425,10 @@ var require_index_001 = __commonJS({
     const elDescriptionsItem = "";
     const elLink = "";
     const elTag = "";
+    const _withScopeId$2 = (n) => (pushScopeId("data-v-dc81d695"), n = n(), popScopeId(), n);
     const _hoisted_1$2 = { key: 0 };
-    const _hoisted_2$2 = { class: "links-box" };
+    const _hoisted_2$2 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createBaseVNode("h4", { class: "desc-title" }, "项目多版本依赖详情", -1));
+    const _hoisted_3$2 = { class: "links-box" };
     const _sfc_main$2 = /* @__PURE__ */ defineComponent({
       __name: "PkgDetail",
       props: {
@@ -34510,20 +34511,20 @@ var require_index_001 = __commonJS({
               _: 1
             }),
             withDirectives(createBaseVNode("div", null, [
-              createVNode(_component_el_descriptions, {
-                title: "项目下的多版本依赖详情",
-                column: 1,
-                border: ""
-              }, {
+              _hoisted_2$2,
+              createVNode(_component_el_scrollbar, { "max-height": "150px" }, {
                 default: withCtx(() => [
-                  createVNode(_component_el_scrollbar, { "max-height": "150px" }, {
+                  createVNode(_component_el_descriptions, {
+                    column: 1,
+                    border: ""
+                  }, {
                     default: withCtx(() => [
                       (openBlock(true), createElementBlock(Fragment, null, renderList(_ctx.data.mulPackageList, (packageArray) => {
                         return openBlock(), createBlock(_component_el_descriptions_item, {
                           label: packageArray[0] != void 0 && packageArray[0].split("&")[0]
                         }, {
                           default: withCtx(() => [
-                            createBaseVNode("div", _hoisted_2$2, [
+                            createBaseVNode("div", _hoisted_3$2, [
                               (openBlock(true), createElementBlock(Fragment, null, renderList(packageArray, (node) => {
                                 return openBlock(), createBlock(_component_el_link, {
                                   type: "primary",
@@ -34555,7 +34556,7 @@ var require_index_001 = __commonJS({
         };
       }
     });
-    const PkgDetail_vue_vue_type_style_index_0_scoped_f4bbc1c0_lang = "";
+    const PkgDetail_vue_vue_type_style_index_0_scoped_dc81d695_lang = "";
     const _export_sfc = (sfc, props) => {
       const target = sfc.__vccOpts || sfc;
       for (const [key, val] of props) {
@@ -34563,11 +34564,11 @@ var require_index_001 = __commonJS({
       }
       return target;
     };
-    const PkgDetail = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-f4bbc1c0"]]);
+    const PkgDetail = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-dc81d695"]]);
     const elOption = "";
     const elOptionGroup = "";
     const elSelect = "";
-    const _withScopeId$1 = (n) => (pushScopeId("data-v-e739fc3a"), n = n(), popScopeId(), n);
+    const _withScopeId$1 = (n) => (pushScopeId("data-v-97d7575b"), n = n(), popScopeId(), n);
     const _hoisted_1$1 = { key: 0 };
     const _hoisted_2$1 = {
       key: 0,
@@ -34586,6 +34587,7 @@ var require_index_001 = __commonJS({
       },
       emits: ["refresh", "hilightCirleLinks", "searchNode"],
       setup(__props, { emit: emit2 }) {
+        const props = __props;
         const showCirleDep = ref(false);
         const showMulPackage = ref(false);
         const changeSelect = (selectedDepth) => {
@@ -34597,12 +34599,15 @@ var require_index_001 = __commonJS({
         function handleClickLink(item) {
           emit2("searchNode", item);
         }
+        const getRootProjectFullname = () => {
+          return props.data.entryPackageName + "&" + props.data.entryVersion;
+        };
         return (_ctx, _cache) => {
+          const _component_el_link = ElLink;
           const _component_el_descriptions_item = ElDescriptionsItem;
           const _component_el_option = ElOption;
           const _component_el_select = ElSelect;
           const _component_el_tag = ElTag;
-          const _component_el_link = ElLink;
           const _component_el_descriptions = ElDescriptions;
           const _component_el_scrollbar = ElScrollbar;
           return openBlock(), createElementBlock(Fragment, null, [
@@ -34617,7 +34622,16 @@ var require_index_001 = __commonJS({
                   "min-width": "150"
                 }, {
                   default: withCtx(() => [
-                    createTextVNode(toDisplayString(_ctx.data.entryPackageName), 1)
+                    createVNode(_component_el_link, {
+                      type: "primary",
+                      onClick: _cache[0] || (_cache[0] = ($event) => handleClickLink(getRootProjectFullname())),
+                      underline: false
+                    }, {
+                      default: withCtx(() => [
+                        createTextVNode(toDisplayString(_ctx.data.entryPackageName), 1)
+                      ]),
+                      _: 1
+                    })
                   ]),
                   _: 1
                 }),
@@ -34631,7 +34645,7 @@ var require_index_001 = __commonJS({
                   default: withCtx(() => [
                     createVNode(_component_el_select, {
                       modelValue: _ctx.data.depth,
-                      "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => _ctx.data.depth = $event),
+                      "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => _ctx.data.depth = $event),
                       class: "m-2",
                       placeholder: "Select",
                       size: "small",
@@ -34677,7 +34691,7 @@ var require_index_001 = __commonJS({
                       createTextVNode("   "),
                       createVNode(_component_el_link, {
                         type: "success",
-                        onClick: _cache[1] || (_cache[1] = ($event) => showMulPackage.value = !showMulPackage.value),
+                        onClick: _cache[2] || (_cache[2] = ($event) => showMulPackage.value = !showMulPackage.value),
                         underline: false
                       }, {
                         default: withCtx(() => [
@@ -34703,7 +34717,7 @@ var require_index_001 = __commonJS({
                       createTextVNode("   "),
                       createVNode(_component_el_link, {
                         type: "success",
-                        onClick: _cache[2] || (_cache[2] = ($event) => showCirleDep.value = !showCirleDep.value),
+                        onClick: _cache[3] || (_cache[3] = ($event) => showCirleDep.value = !showCirleDep.value),
                         underline: false
                       }, {
                         default: withCtx(() => [
@@ -34820,10 +34834,10 @@ var require_index_001 = __commonJS({
         };
       }
     });
-    const ProjectDetail_vue_vue_type_style_index_0_scoped_e739fc3a_lang = "";
-    const ProjectDetail = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-e739fc3a"]]);
-    const _withScopeId = (n) => (pushScopeId("data-v-f5e74dee"), n = n(), popScopeId(), n);
-    const _hoisted_1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("h2", null, "Pkg Insights", -1));
+    const ProjectDetail_vue_vue_type_style_index_0_scoped_97d7575b_lang = "";
+    const ProjectDetail = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-97d7575b"]]);
+    const _withScopeId = (n) => (pushScopeId("data-v-15d2b476"), n = n(), popScopeId(), n);
+    const _hoisted_1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("h1", null, "Dep-Analyze-Cli Insights", -1));
     const _hoisted_2 = { class: "search-box" };
     const _hoisted_3 = { class: "switch-box" };
     const _hoisted_4 = { class: "switch" };
@@ -34831,7 +34845,7 @@ var require_index_001 = __commonJS({
     const _hoisted_6 = { class: "switch" };
     const _hoisted_7 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("span", null, "展示箭头", -1));
     const _hoisted_8 = { class: "switch" };
-    const _hoisted_9 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("span", null, "定位中心点(实验性)", -1));
+    const _hoisted_9 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("span", null, "定位到中心点", -1));
     const _hoisted_10 = { class: "upload-btn" };
     const _hoisted_11 = { class: "container" };
     const _hoisted_12 = { class: "svg-box" };
@@ -34885,7 +34899,7 @@ var require_index_001 = __commonJS({
         const searchKeyWords = ref("");
         const showName = ref(true);
         const showArrow = ref(true);
-        const isCenter = ref(false);
+        const isCenter = ref(true);
         const loading = ref(true);
         const isLocalFile = ref(false);
         const nodeDetail = ref({
@@ -34954,9 +34968,11 @@ var require_index_001 = __commonJS({
             const circle = select$1(_name);
             const r = circle.attr("r");
             circle.transition().duration(100).attr("r", 4).transition().duration(100).attr("r", r);
-            getNodeDetail(sourceName).then((resp) => {
-              nodeDetail.value = __spreadValues({}, resp);
-            });
+            if (!isLocalFile) {
+              getNodeDetail(sourceName).then((resp) => {
+                nodeDetail.value = __spreadValues({}, resp);
+              });
+            }
             hightlightLinks(sourceName);
           };
           function hightlightLinks(sourceName) {
@@ -34995,6 +35011,12 @@ var require_index_001 = __commonJS({
             container.append("polygon ").attr("points", "65,5 100,35 85,75 35,75 20,35").attr("fill", "red");
           }).on("mouseover", tip.show).on("mouseout", tip.hide);
           node.append("text").attr("x", (d) => -d.name.length * 3).attr("y", 15).text((d) => d.name).attr("font-size", 10).clone(true).lower().attr("fill", "none");
+          const rootName = data2.entryPackageName + "&" + data2.entryVersion;
+          const rootPoint = select$1("#" + rootName.replace(/[^a-zA-Z0-9]/g, ""));
+          rootPoint.attr("fill", "red");
+          setInterval(() => {
+            rootPoint.transition().duration(500).attr("r", 20).transition().duration(500).attr("r", 10);
+          }, 1500);
           let zoom$1 = zoom().scaleExtent([0.1, 10]).on("zoom", (e3) => {
             container.attr("transform", e3.transform);
           });
@@ -35040,16 +35062,30 @@ var require_index_001 = __commonJS({
               return { x: x2, y: y2 };
             }
           }
+          let previousTaget = null;
+          let previousRadius = 0;
           function scaleAndCenterNode(packageName, x2, y2) {
+            const isRootPoint = packageName === rootName;
+            if (previousTaget !== null && !isRootPoint) {
+              previousTaget.interrupt();
+              previousTaget.attr("r", previousRadius);
+            }
             const name = "#" + packageName.replace(/[^a-zA-Z0-9]/g, "");
             const circle = svg.select(name);
             const r = circle.attr("r");
+            previousTaget = circle;
+            previousRadius = r;
             if (isCenter.value) {
               container.transition().duration(1e3).attr(
                 "transform",
                 `translate(${width / 2 - x2}, ${height / 2 - y2}) scale(1)`
               );
+              svg.node().__zoom.k = 1;
+              svg.node().__zoom.x = width / 2 - x2;
+              svg.node().__zoom.y = height / 2 - y2;
             }
+            if (isRootPoint)
+              return;
             circle.transition().duration(500).attr("r", 30).transition().duration(500).attr("r", r);
           }
           return {
@@ -35074,9 +35110,11 @@ var require_index_001 = __commonJS({
           graph.hightlightLinks(packageName);
           const { x: x2, y: y2 } = graph.getNodePositionByName(packageName);
           graph.scaleAndCenterNode(packageName, x2, y2);
-          getNodeDetail(packageName).then((resp) => {
-            nodeDetail.value = __spreadValues({}, resp);
-          });
+          if (!isLocalFile) {
+            getNodeDetail(packageName).then((resp) => {
+              nodeDetail.value = __spreadValues({}, resp);
+            });
+          }
         }
         const querySearch = (queryString, cb) => {
           const results = queryString ? dependenciesList.value.filter(createFilter(queryString)) : dependenciesList.value;
@@ -35189,6 +35227,10 @@ var require_index_001 = __commonJS({
         const reLoad = () => {
           selectAll("g").remove();
           loading.value = true;
+          const svg = select$1("svg");
+          svg.node().__zoom.k = 1;
+          svg.node().__zoom.x = 0;
+          svg.node().__zoom.y = 0;
           nodeDetail.value.entryPackageName = "";
         };
         return (_ctx, _cache) => {
@@ -35288,7 +35330,7 @@ var require_index_001 = __commonJS({
                                         type: "success"
                                       }, {
                                         default: withCtx(() => [
-                                          createTextVNode("上传")
+                                          createTextVNode("上传JSON")
                                         ]),
                                         _: 1
                                       })
@@ -35346,7 +35388,10 @@ var require_index_001 = __commonJS({
                                   onRefresh: search
                                 }, null, 8, ["data"])
                               ], 512), [
-                                [vShow, nodeDetail.value.entryPackageName && !isLocalFile.value]
+                                [
+                                  vShow,
+                                  nodeDetail.value.entryPackageName && !isLocalFile.value && nodeDetail.value.entryPackageName !== unref(data).entryPackageName
+                                ]
                               ])
                             ])
                           ]),
@@ -35367,8 +35412,8 @@ var require_index_001 = __commonJS({
         };
       }
     });
-    const App_vue_vue_type_style_index_0_scoped_f5e74dee_lang = "";
-    const App = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-f5e74dee"]]);
+    const App_vue_vue_type_style_index_0_scoped_15d2b476_lang = "";
+    const App = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-15d2b476"]]);
     const index = "";
     createApp(App).mount("#app");
   }

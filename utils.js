@@ -101,12 +101,13 @@ function getLocalDepConfObj(packageName, version, isLocal = true) {
             // 为了能跑起来，先舍弃一部分，把保证包名一致就可以了
             if (key.split('&').at(0) === packageName) {
                 depConfObj = (isLocal ? exports.localDependencies : exports.globalDependencies).get(key);
+                // console.error(`${consoleStyle.red}${packageName}:${version} 该版本的模块不存在，正在返回相同模块名而版本号不同的数据${consoleStyle.endStyle}`);
                 break;
             }
         }
         if (depConfObj.name === '' && depConfObj.version === '') {
             // console.log(packageName, version)
-            throw new Error('该版本的模块不存在，请使用npm list [-g]查看所安装的模块');
+            throw new Error(`${packageName} 该模块不存在，请使用npm list [-g]查看所安装的模块`);
         }
     }
     return depConfObj;
@@ -134,12 +135,13 @@ function getGlobalDepConfObj(packageName, version, isLocal = false) {
             // 为了能跑起来，先舍弃一部分，把保证包名一致就可以了
             if (key.split('&').at(0) === packageName) {
                 depConfObj = (isLocal ? exports.localDependencies : exports.globalDependencies).get(key);
+                // console.error(`${consoleStyle.red}${packageName}:${version} 该版本的模块不存在，正在返回相同模块名而版本号不同的数据${consoleStyle.endStyle}`);
                 break;
             }
         }
         if (depConfObj.name === '' && depConfObj.version === '') {
             // console.log(packageName, version)
-            throw new Error('该版本的模块不存在，请使用npm list [-g]查看所安装的模块');
+            throw new Error(`${packageName} 该模块不存在，请使用npm list [-g]查看所安装的模块`);
         }
     }
     return depConfObj;

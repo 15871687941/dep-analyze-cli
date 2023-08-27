@@ -19,7 +19,9 @@ function isPortOpen(port = exports.default_port) {
         const server = net_1.default.createServer();
         server.once('error', (err) => {
             if (err.code === 'EADDRINUSE') {
-                console.log(`Warning: ${consolestyle_1.consoleStyle.red}Server[http:127.0.0.1:50000] is running, please don't execute command[pkg-cli runserver]${consolestyle_1.consoleStyle.endStyle}`);
+                console.log(
+                // `Warning: ${consoleStyle.red}Server[http:127.0.0.1:50000] is running, please don't execute command[pkg-cli runserver]${consoleStyle.endStyle}`,
+                );
                 resolve(false); // 端口被占用
             }
             else {
@@ -34,7 +36,7 @@ function isPortOpen(port = exports.default_port) {
     });
 }
 exports.isPortOpen = isPortOpen;
-function run_server(port = exports.default_port) {
+function run_server(pkgName = "", ver = "", port = exports.default_port) {
     const app = (0, express_1.default)();
     app.use(express_1.default.static(path_1.default.join(__dirname, 'vue')));
     // GET https://localhost:50000/
@@ -71,13 +73,22 @@ function run_server(port = exports.default_port) {
                 }
                 // console.log(firstRequestDepth);
                 depth = firstRequestDepth;
-                const { name, version } = require(path_1.default.join(process.cwd(), 'package.json'));
+                let { name, version } = require(path_1.default.join(process.cwd(), 'package.json'));
+                if (pkgName !== "" && ver !== "") {
+                    name = pkgName;
+                    version = ver;
+                }
+                // console.log(name ,version);
                 exports.depAnalyze.load(name, version, depth);
                 depObj = exports.depAnalyze.toObject();
                 rep.json(depObj);
             }
             else {
-                const [name, version] = res.params.dep.split('&');
+                let [name, version] = res.params.dep.split('&');
+                if (pkgName !== "" && ver !== "") {
+                    name = pkgName;
+                    version = ver;
+                }
                 exports.depAnalyze.load(name, version, depth);
                 depObj = exports.depAnalyze.toObject();
                 rep.json(depObj);
@@ -113,12 +124,6 @@ function run_server(port = exports.default_port) {
         }
     });
     app.listen(port, () => {
-        // console.log(`
-        //  _____ _   ___
-        // |     | |_|_  |___ ___ ___ ___ ___ ___
-        // |   --|   |_  |   |   |   |   |   |   |
-        // |_____|_|_|___|_|_|_|_|_|_|_|_|_|_|_|_|
-        //            折腾不息 · 乐此不疲. `)
         console.log('Starting to run a server...');
         console.log(`Local:   %shttp://127.0.0.1:${port}%s`, consolestyle_1.consoleStyle.green, consolestyle_1.consoleStyle.endStyle);
         console.log(`Function:${consolestyle_1.consoleStyle.blue}graphically display the current project dependencies information${consolestyle_1.consoleStyle.endStyle}`);
