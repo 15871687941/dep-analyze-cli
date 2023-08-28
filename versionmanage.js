@@ -84,8 +84,6 @@ exports.analyseVersion = analyseVersion;
  */
 // 目前只匹配了''、'^'、'~'，还有'*'、'>='、'<='等未实现
 function isEqualVersion(pk1, v1, pk2, v2) {
-    const fullPackage1 = analyseVersion(pk1, v1);
-    const fullPackage2 = analyseVersion(pk2, v2);
     if (pk1 !== pk2) {
         return false;
     }
@@ -113,6 +111,8 @@ function isEqualVersion(pk1, v1, pk2, v2) {
     if (semver.satisfies(v1, v2)) {
         return true;
     }
+    const fullPackage1 = analyseVersion(pk1, v1);
+    const fullPackage2 = analyseVersion(pk2, v2);
     if (fullPackage2.reg === '^') {
         return fullPackage1.firstVer === fullPackage2.firstVer;
     }

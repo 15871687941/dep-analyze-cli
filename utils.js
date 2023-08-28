@@ -107,7 +107,7 @@ function getLocalDepConfObj(packageName, version, isLocal = true) {
         }
         if (depConfObj.name === '' && depConfObj.version === '') {
             // console.log(packageName, version)
-            throw new Error(`${packageName} 该模块不存在，请使用npm list [-g]查看所安装的模块`);
+            throw new Error(`[${packageName}]该模块不存在，可能是包名与package.json中的name字段不匹配导致的`);
         }
     }
     return depConfObj;
@@ -141,7 +141,7 @@ function getGlobalDepConfObj(packageName, version, isLocal = false) {
         }
         if (depConfObj.name === '' && depConfObj.version === '') {
             // console.log(packageName, version)
-            throw new Error(`${packageName} 该模块不存在，请使用npm list [-g]查看所安装的模块`);
+            throw new Error(`[${packageName}]该模块不存在，可能是包名与package.json中的name字段不匹配导致的`);
         }
     }
     return depConfObj;
