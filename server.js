@@ -9,6 +9,7 @@ const depanalyze_1 = __importDefault(require("./depanalyze"));
 const net_1 = __importDefault(require("net"));
 const path_1 = __importDefault(require("path"));
 const consolestyle_1 = require("./consolestyle");
+const child_process_1 = require("child_process");
 exports.default_port = 8080;
 exports.depAnalyze = new depanalyze_1.default();
 exports.depAnalyze.init();
@@ -127,6 +128,16 @@ function run_server(pkgName = "", ver = "", port = exports.default_port) {
         console.log('Starting to run a server...');
         console.log(`Local:   %shttp://127.0.0.1:${port}%s`, consolestyle_1.consoleStyle.green, consolestyle_1.consoleStyle.endStyle);
         console.log(`Function:${consolestyle_1.consoleStyle.blue}graphically display the current project dependencies information${consolestyle_1.consoleStyle.endStyle}`);
+        (0, child_process_1.exec)("open http://127.0.0.1:8080", (error, stdout, stderr) => {
+            if (error) {
+                console.error(`执行命令时出错：${error}`);
+                return;
+            }
+            // console.log(`Next: ${stdout}`);
+            // if(stderr){
+            //     console.error(`stderr: ${stderr}`);
+            // }
+        });
     });
 }
 exports.run_server = run_server;

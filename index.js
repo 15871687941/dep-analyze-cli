@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const consolestyle_1 = require("./consolestyle");
 const server_1 = require("./server");
 const utils_1 = require("./utils");
 const fs_1 = __importDefault(require("fs"));
@@ -93,6 +94,9 @@ try {
                         .then((isOpen) => {
                         if (isOpen) {
                             (0, server_1.run_server)();
+                        }
+                        else {
+                            console.info(`提示:${consolestyle_1.consoleStyle.blue}8080端口正在使用中或被其他程序占用，本次命令调用只输出依赖详情${consolestyle_1.consoleStyle.endStyle}`);
                         }
                     })
                         .catch((err) => {

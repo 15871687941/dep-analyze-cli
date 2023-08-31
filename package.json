@@ -1,6 +1,6 @@
 {
   "name": "dep-analyze-cli",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "display dependency information of the package and run a server to graphical display",
   "main": "./index.js",
   "scripts": {
@@ -27,6 +27,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "child_process": "^1.0.2",
     "express": "^4.18.2",
     "semver": "^7.5.4"
   },
@@ -47,5 +48,10 @@
     "typescript": "^5.1.6",
     "vitest": "^0.34.3"
   },
-  "keywords": ["package", "analyze", "dependencies", "graphical display"]
+  "keywords": [
+    "package",
+    "analyze",
+    "dependencies",
+    "graphical display"
+  ]
 }
