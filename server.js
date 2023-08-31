@@ -9,7 +9,7 @@ const depanalyze_1 = __importDefault(require("./depanalyze"));
 const net_1 = __importDefault(require("net"));
 const path_1 = __importDefault(require("path"));
 const consolestyle_1 = require("./consolestyle");
-exports.default_port = 50000;
+exports.default_port = 8080;
 exports.depAnalyze = new depanalyze_1.default();
 exports.depAnalyze.init();
 let firstRequestDepth = Infinity;
@@ -20,7 +20,7 @@ function isPortOpen(port = exports.default_port) {
         server.once('error', (err) => {
             if (err.code === 'EADDRINUSE') {
                 console.log(
-                // `Warning: ${consoleStyle.red}Server[http:127.0.0.1:50000] is running, please don't execute command[pkg-cli runserver]${consoleStyle.endStyle}`,
+                // `Warning: ${consoleStyle.red}Server[http:127.0.0.1:8080] is running, please don't execute command[pkg-cli runserver]${consoleStyle.endStyle}`,
                 );
                 resolve(false); // 端口被占用
             }
@@ -39,16 +39,16 @@ exports.isPortOpen = isPortOpen;
 function run_server(pkgName = "", ver = "", port = exports.default_port) {
     const app = (0, express_1.default)();
     app.use(express_1.default.static(path_1.default.join(__dirname, 'vue')));
-    // GET https://localhost:50000/
+    // GET https://localhost:8080/
     app.get('/', (res, req) => {
         req.sendFile(path_1.default.resolve(path_1.default.join(__dirname, 'vue', 'index.html')));
     });
-    // https://localhost:50000/deplist
+    // https://localhost:8080/deplist
     app.get('/deplist', (res, rep) => {
         const depList = exports.depAnalyze.getDepList();
         rep.json(depList);
     });
-    // https://localhost:50000/depgraph/glob&0.0.1/10
+    // https://localhost:8080/depgraph/glob&0.0.1/10
     app.get('/depgraph/:dep/:depth?', (res, rep) => {
         let depObj = {};
         let depth = res.params.depth || '-1';

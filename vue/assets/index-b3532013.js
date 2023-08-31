@@ -55,7 +55,7 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 var require_index_001 = __commonJS({
-  "assets/index-6e23df17.js"(exports, module) {
+  "assets/index-b3532013.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -34395,7 +34395,7 @@ var require_index_001 = __commonJS({
     axios.default = axios;
     const axios$1 = axios;
     const request = axios$1.create({
-      baseURL: "http://127.0.0.1:50000"
+      baseURL: "http://127.0.0.1:8080"
       // baseURL: 'http://localhost:5173/api',
       // baseURL: "https://www.fastmock.site/mock/ecf8883ff9dc69f1a831283178b60acd/test/",
     });
